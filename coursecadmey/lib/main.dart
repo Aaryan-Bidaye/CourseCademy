@@ -2,7 +2,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'favorites_page.dart';
+import 'favoritespage.dart';
 
 void main() {
   runApp(MyApp());
