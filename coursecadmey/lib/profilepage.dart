@@ -4,34 +4,25 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          // SliverAppBar 部分
-          SliverAppBar(
-            expandedHeight: 100.0,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromRGBO(255, 242, 179, 1),
-                      Color.fromRGBO(255, 255, 255, 1)
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // 渐变背景部分
+            Container(
+              height: 300, // 增加渐变背景的高度
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(255, 242, 179, 1),
+                    Colors.white, // 渐变色过渡到白色
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.0, 0.8], // 控制渐变范围
                 ),
               ),
-            ),
-          ),
-
-          SliverList(
-            delegate: SliverChildListDelegate([
-              // 用户信息部分
-              Container(
-                padding: EdgeInsets.all(16.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     CircleAvatar(
@@ -42,6 +33,7 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(width: 16), // 添加间距
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           'Username', // 用户名
@@ -74,42 +66,43 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
               ),
-              // 视频列表部分
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Videos',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+            ),
+            // 视频列表部分
+            Container(
+              color: Colors.white, // 设置视频列表的背景色为白色
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Videos',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 10),
-                    // 视频项示例
-                    VideoItem(
-                      thumbnailUrl: 'https://via.placeholder.com/150',
-                      title: 'Video Title 1',
-                      views: '1,000 views',
-                    ),
-                    VideoItem(
-                      thumbnailUrl: 'https://via.placeholder.com/150',
-                      title: 'Video Title 2',
-                      views: '500 views',
-                    ),
-                    VideoItem(
-                      thumbnailUrl: 'https://via.placeholder.com/150',
-                      title: 'Video Title 3',
-                      views: '200 views',
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10),
+                  // 视频项示例
+                  VideoItem(
+                    thumbnailUrl: 'https://via.placeholder.com/150',
+                    title: 'Video Title 1',
+                    views: '1,000 views',
+                  ),
+                  VideoItem(
+                    thumbnailUrl: 'https://via.placeholder.com/150',
+                    title: 'Video Title 2',
+                    views: '500 views',
+                  ),
+                  VideoItem(
+                    thumbnailUrl: 'https://via.placeholder.com/150',
+                    title: 'Video Title 3',
+                    views: '200 views',
+                  ),
+                ],
               ),
-            ]),
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
