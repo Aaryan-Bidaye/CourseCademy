@@ -6,7 +6,7 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'), // 页面标题
-        backgroundColor: Colors.red, // YouTube 的红色主题
+        backgroundColor: const Color.fromRGBO(255, 210, 2, 1), //
       ),
       body: SingleChildScrollView(
         // 使用 SingleChildScrollView 使页面可以滚动
@@ -47,7 +47,8 @@ class ProfilePage extends StatelessWidget {
                           // 处理订阅逻辑
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red, // 按钮颜色
+                          backgroundColor:
+                              const Color.fromRGBO(255, 210, 2, 1), // 按钮颜色
                         ),
                         child: Text('Subscribe'),
                       ),
