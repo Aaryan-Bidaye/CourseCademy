@@ -5,86 +5,120 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'), // 页面标题
-        backgroundColor: Colors.red, // YouTube 的红色主题
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.settings, color: Colors.black),
+          onPressed: () {},
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search, color: Colors.black),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
-        // 使用 SingleChildScrollView 使页面可以滚动
         child: Column(
           children: [
-            // 用户信息部分
-            Container(
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start, // 让头像和文字顶部对齐
                 children: [
                   CircleAvatar(
-                    radius: 50, // 头像大小
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'), // 用户头像
+                    radius: 40,
+                    backgroundColor: Colors.grey.shade300,
+                    child: Icon(Icons.person, size: 50, color: Colors.black54),
                   ),
-                  SizedBox(width: 16), // 添加间距
+                  SizedBox(width: 16),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, // 让 Username 和 ID 左对齐
                     children: [
                       Text(
-                        'Username', // 用户名
+                        'Username',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        '1000 Subscribers', // 订阅人数
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: () {
-                          // 处理订阅逻辑
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red, // 按钮颜色
-                        ),
-                        child: Text('Subscribe'),
-                      ),
+                      Text('ID: ', style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                 ],
               ),
             ),
-            // 视频列表部分
+            SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Description: Click here to fill in.',
+                  style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    Text('0',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('My Courses', style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('0',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text('Followed Courses',
+                        style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    'Videos',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  _buildTabItem(Icons.history, 'History'),
+                  _buildTabItem(Icons.favorite, 'Likes'),
+                  _buildTabItem(Icons.playlist_play, 'Playlists'),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            DefaultTabController(
+              length: 2,
+              child: Column(
+                children: [
+                  TabBar(
+                    labelColor: Colors.black,
+                    indicatorColor: Colors.black,
+                    tabs: [
+                      Tab(text: 'Posts'),
+                      Tab(text: 'Likes'),
+                    ],
+                  ),
+                  Container(
+                    height: 200,
+                    padding: EdgeInsets.all(16),
+                    color: Colors.yellow.shade200,
+                    child: Center(
+                      child: Text(
+                        'Share your knowledge here!',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  // 视频项示例
-                  VideoItem(
-                    thumbnailUrl: 'https://via.placeholder.com/150',
-                    title: 'Video Title 1',
-                    views: '1,000 views',
-                  ),
-                  VideoItem(
-                    thumbnailUrl: 'https://via.placeholder.com/150',
-                    title: 'Video Title 2',
-                    views: '500 views',
-                  ),
-                  VideoItem(
-                    thumbnailUrl: 'https://via.placeholder.com/150',
-                    title: 'Video Title 3',
-                    views: '200 views',
                   ),
                 ],
               ),
@@ -94,56 +128,14 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
-}
 
-// 视频项组件
-class VideoItem extends StatelessWidget {
-  final String thumbnailUrl;
-  final String title;
-  final String views;
-
-  VideoItem({
-    required this.thumbnailUrl,
-    required this.title,
-    required this.views,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(vertical: 8.0), // 上下间距
-      child: Row(
-        children: [
-          Image.network(
-            thumbnailUrl,
-            width: 120,
-            height: 80,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  views,
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+  Widget _buildTabItem(IconData icon, String label) {
+    return Column(
+      children: [
+        Icon(icon, size: 28, color: Colors.black),
+        SizedBox(height: 4),
+        Text(label, style: TextStyle(color: Colors.black)),
+      ],
     );
   }
 }
